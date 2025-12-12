@@ -16,13 +16,15 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CollectionsScreen(
+    modifier: Modifier = Modifier,
     viewModel: CollectionsViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ) {
     val collections by viewModel.collections.collectAsState()
     var showDialog by remember { mutableStateOf(false) }
-    var collectionName by remember { mutableStateOf("") }
+    var collectionName by remember { mutableState of("") }
 
     Scaffold(
+        modifier = modifier,
         topBar = {
             TopAppBar(
                 title = { Text(text = "Collections") }
