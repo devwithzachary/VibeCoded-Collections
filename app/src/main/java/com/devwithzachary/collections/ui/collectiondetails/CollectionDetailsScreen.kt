@@ -1,6 +1,5 @@
 package com.devwithzachary.collections.ui.collectiondetails
 
-import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMedia
 import androidx.activity.result.contract.ActivityResultContracts
