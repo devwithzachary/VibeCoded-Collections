@@ -22,5 +22,6 @@ data class CollectionItem(
     val name: String,
     val description: String,
     val has: Boolean,
-    val wants: Boolean
+    val wants: Boolean,
+    val imageUri: String? = null
 )
