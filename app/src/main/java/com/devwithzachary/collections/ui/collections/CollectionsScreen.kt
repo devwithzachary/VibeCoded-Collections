@@ -1,5 +1,6 @@
 package com.devwithzachary.collections.ui.collections
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -18,7 +19,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 @Composable
 fun CollectionsScreen(
     modifier: Modifier = Modifier,
-    viewModel: CollectionsViewModel = viewModel(factory = AppViewModelProvider.Factory)
+    viewModel: CollectionsViewModel = viewModel(factory = AppViewModelProvider.Factory),
+    onCollectionClick: (Int) -> Unit
 ) {
     val collections by viewModel.collections.collectAsState()
     var showDialog by rememberSaveable { mutableStateOf(false) }
@@ -43,7 +45,13 @@ fun CollectionsScreen(
                 .padding(innerPadding)
         ) {
             items(collections) { collection ->
-                Text(text = collection.name, modifier = Modifier.padding(16.dp))
+                Text(
+                    text = collection.name,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clickable { onCollectionClick(collection.id) }
+                        .padding(16.dp)
+                )
             }
         }
 

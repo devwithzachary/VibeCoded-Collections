@@ -18,4 +18,8 @@ class CollectionsRepository(
     suspend fun insertCollectionItem(item: CollectionItem) {
         collectionItemDao.insert(item)
     }
+
+    suspend fun updateCollectionItem(item: CollectionItem) {
+        collectionItemDao.update(item)
+    }
 }

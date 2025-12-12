@@ -3,6 +3,7 @@ package com.devwithzachary.collections.data
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -12,4 +13,7 @@ interface CollectionItemDao {
 
     @Insert
     suspend fun insert(item: CollectionItem)
+
+    @Update
+    suspend fun update(item: CollectionItem)
 }
