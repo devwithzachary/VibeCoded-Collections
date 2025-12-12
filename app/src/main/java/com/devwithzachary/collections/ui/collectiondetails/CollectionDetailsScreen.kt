@@ -127,7 +127,7 @@ fun CollectionDetailsScreen(
                         )
                         SwipeToDismissBox(
                             state = dismissState,
-                            modifier = Modifier.animateItemPlacement(),
+                            modifier = Modifier.animateItem(),
                             backgroundContent = {
                                 Card(modifier = Modifier.padding(8.dp)) {
                                     Box(
