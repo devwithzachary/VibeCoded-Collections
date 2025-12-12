@@ -12,8 +12,11 @@ interface CollectionDao {
     @Query("SELECT * FROM collections ORDER BY name ASC")
     fun getAllCollections(): Flow<List<Collection>>
 
+    @Query("SELECT * FROM collections")
+    suspend fun getAllCollectionsSync(): List<Collection>
+
     @Insert
-    suspend fun insert(collection: Collection)
+    suspend fun insert(collection: Collection): Long
 
     @Update
     suspend fun update(collection: Collection)

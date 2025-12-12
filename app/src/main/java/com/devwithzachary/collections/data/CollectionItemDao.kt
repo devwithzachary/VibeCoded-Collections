@@ -12,6 +12,9 @@ interface CollectionItemDao {
     @Query("SELECT * FROM collection_items WHERE collectionId = :collectionId ORDER BY name ASC")
     fun getItemsForCollection(collectionId: Int): Flow<List<CollectionItem>>
 
+    @Query("SELECT * FROM collection_items WHERE collectionId = :collectionId")
+    suspend fun getItemsForCollectionSync(collectionId: Int): List<CollectionItem>
+
     @Insert
     suspend fun insert(item: CollectionItem)
 

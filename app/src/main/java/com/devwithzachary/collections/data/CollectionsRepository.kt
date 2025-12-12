@@ -1,6 +1,9 @@
 package com.devwithzachary.collections.data
 
+import com.google.gson.Gson
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.withContext
+import kotlinx.coroutines.Dispatchers
 
 class CollectionsRepository(
     private val collectionDao: CollectionDao,
@@ -33,5 +36,46 @@ class CollectionsRepository(
 
     suspend fun deleteCollectionItem(item: CollectionItem) {
         collectionItemDao.delete(item)
+    }
+
+    suspend fun exportData(): String = withContext(Dispatchers.IO) {
+        val collections = collectionDao.getAllCollectionsSync()
+        val exportList = collections.map { collection ->
+            val items = collectionItemDao.getItemsForCollectionSync(collection.id)
+            CollectionWithItemsExport(
+                name = collection.name,
+                items = items.map { item ->
+                    CollectionItemExport(
+                        name = item.name,
+                        description = item.description,
+                        has = item.has,
+                        wants = item.wants,
+                        imageUri = item.imageUri
+                    )
+                }
+            )
+        }
+        val exportData = CollectionsExport(exportList)
+        Gson().toJson(exportData)
+    }
+
+    suspend fun importData(json: String) = withContext(Dispatchers.IO) {
+        val data = Gson().fromJson(json, CollectionsExport::class.java)
+        data.collections.forEach { collectionExport ->
+            val newCollection = Collection(name = collectionExport.name)
+            val collectionId = collectionDao.insert(newCollection).toInt()
+            collectionExport.items.forEach { itemExport ->
+                collectionItemDao.insert(
+                    CollectionItem(
+                        collectionId = collectionId,
+                        name = itemExport.name,
+                        description = itemExport.description,
+                        has = itemExport.has,
+                        wants = itemExport.wants,
+                        imageUri = itemExport.imageUri
+                    )
+                )
+            }
+        }
     }
 }

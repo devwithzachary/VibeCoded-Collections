@@ -12,7 +12,8 @@ object AppViewModelProvider {
     val Factory = viewModelFactory {
         initializer {
             CollectionsViewModel(
-                collectionsApplication().container.collectionsRepository
+                collectionsApplication().container.collectionsRepository,
+                collectionsApplication()
             )
         }
 
