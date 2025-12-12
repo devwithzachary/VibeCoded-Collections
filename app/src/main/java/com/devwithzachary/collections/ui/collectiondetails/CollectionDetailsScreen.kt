@@ -116,20 +116,20 @@ fun CollectionDetailsScreen(
                         .fillMaxSize()
                 ) {
                     items(collectionItems, key = { it.id }) { item ->
-                        val dismissState = rememberDismissState(
+                        val dismissState = rememberSwipeToDismissBoxState(
                             confirmValueChange = {
-                                if (it == DismissValue.DismissedToEnd || it == DismissValue.DismissedToStart) {
+                                if (it == SwipeToDismissBoxValue.EndToStart || it == SwipeToDismissBoxValue.StartToEnd) {
                                     viewModel.deleteItem(item)
-                                    return@rememberDismissState true
+                                    return@rememberSwipeToDismissBoxState true
                                 }
                                 false
                             }
                         )
-                        SwipeToDismiss(
+                        SwipeToDismissBox(
                             state = dismissState,
                             modifier = Modifier.animateItemPlacement(),
-                            background = {
-                               Card(modifier = Modifier.padding(8.dp)) {
+                            backgroundContent = {
+                                Card(modifier = Modifier.padding(8.dp)) {
                                     Box(
                                         modifier = Modifier
                                             .fillMaxSize()
@@ -138,9 +138,9 @@ fun CollectionDetailsScreen(
                                     ) {
                                         Icon(Icons.Default.Delete, contentDescription = "Delete")
                                     }
-                               }
+                                }
                             },
-                            dismissContent = {
+                            content = {
                                 Card(
                                     modifier = Modifier
                                         .fillMaxWidth()
