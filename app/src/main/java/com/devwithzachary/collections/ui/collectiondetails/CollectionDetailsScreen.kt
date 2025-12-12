@@ -1,8 +1,8 @@
 package com.devwithzachary.collections.ui.collectiondetails
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -13,9 +13,7 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.devwithzachary.collections.data.CollectionItem
 import com.devwithzachary.collections.ui.collections.AppViewModelProvider
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -51,8 +49,8 @@ fun CollectionDetailsScreen(
         ) {
             items(collectionItems) { item ->
                 ListItem(
-                    headlineText = { Text(item.name) },
-                    supportingText = { Text(item.description) },
+                    headlineContent = { Text(item.name) },
+                    supportingContent = { Text(item.description) },
                     trailingContent = {
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             Checkbox(

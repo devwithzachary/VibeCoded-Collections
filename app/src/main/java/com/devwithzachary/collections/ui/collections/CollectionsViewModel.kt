@@ -1,12 +1,7 @@
 package com.devwithzachary.collections.ui.collections
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.CreationExtras
-import androidx.lifecycle.viewmodel.initializer
-import androidx.lifecycle.viewmodel.viewModelFactory
-import com.devwithzachary.collections.CollectionsApplication
 import com.devwithzachary.collections.data.Collection
 import com.devwithzachary.collections.data.CollectionsRepository
 import kotlinx.coroutines.flow.SharingStarted
@@ -29,16 +24,3 @@ class CollectionsViewModel(private val collectionsRepository: CollectionsReposit
         }
     }
 }
-
-object AppViewModelProvider {
-    val Factory = viewModelFactory {
-        initializer {
-            CollectionsViewModel(
-                collectionsApplication().container.collectionsRepository
-            )
-        }
-    }
-}
-
-fun CreationExtras.collectionsApplication(): CollectionsApplication =
-    (this[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY] as CollectionsApplication)

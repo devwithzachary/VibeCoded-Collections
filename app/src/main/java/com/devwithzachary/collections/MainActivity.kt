@@ -19,7 +19,7 @@ import com.devwithzachary.collections.ui.collections.CollectionsScreen
 import com.devwithzachary.collections.ui.theme.CollectionsTheme
 
 class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState) {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
