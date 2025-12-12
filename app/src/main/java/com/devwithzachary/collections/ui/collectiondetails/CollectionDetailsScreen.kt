@@ -1,7 +1,6 @@
 package com.devwithzachary.collections.ui.collectiondetails
 
 import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.PickVisualMedia
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.combinedClickable
@@ -245,7 +244,9 @@ private fun EditItemDialog(
                 )
                 Button(onClick = {
                     imagePicker.launch(
-                        PickVisualMedia.Request(ActivityResultContracts.PickVisualMedia.ImageOnly)
+                        androidx.activity.result.PickVisualMediaRequest(
+                             androidx.activity.result.contract.ActivityResultContracts.PickVisualMedia.ImageOnly
+                        )
                     )
                 }) {
                     Text("Select Image")
