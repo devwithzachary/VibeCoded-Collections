@@ -2,7 +2,11 @@ package com.devwithzachary.collections.ui.collections
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.combinedClickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
@@ -64,19 +68,19 @@ fun CollectionsScreen(
                         .fillMaxSize()
                 ) {
                     items(collections, key = { it.id }) { collection ->
-                        val dismissState = rememberDismissState(
+                        val dismissState = rememberSwipeToDismissBoxState(
                             confirmValueChange = {
-                                if (it == DismissValue.DismissedToEnd || it == DismissValue.DismissedToStart) {
+                                if (it == SwipeToDismissBoxValue.EndToStart || it == SwipeToDismissBoxValue.StartToEnd) {
                                     viewModel.deleteCollection(collection)
-                                    return@rememberDismissState true
+                                    return@rememberSwipeToDismissBoxState true
                                 }
                                 false
                             }
                         )
-                        SwipeToDismiss(
+                        SwipeToDismissBox(
                             state = dismissState,
-                            modifier = Modifier.animateItemPlacement(),
-                            background = {
+                            modifier = Modifier.animateItem(),
+                            backgroundContent = {
                                 Card(modifier = Modifier.padding(8.dp)) {
                                     Box(
                                         modifier = Modifier
@@ -88,7 +92,7 @@ fun CollectionsScreen(
                                     }
                                 }
                             },
-                            dismissContent = {
+                            content = {
                                 Card(
                                     modifier = Modifier
                                         .fillMaxWidth()
